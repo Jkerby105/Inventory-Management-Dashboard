@@ -1,7 +1,11 @@
+import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
+import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 import fs from "fs";
 import path from "path";
-const prisma = new PrismaClient();
+
+const adapter = new PrismaMariaDb(process.env.DATABASE_URL!);
+const prisma = new PrismaClient({ adapter });
 
 async function deleteAllData(orderedFileNames: string[]) {
   const modelNames = orderedFileNames.map((fileName) => {
@@ -37,7 +41,7 @@ async function main() {
     "expenseByCategory.json",
   ];
 
-  await deleteAllData(orderedFileNames);
+  // await deleteAllData(orderedFileNames);
 
   for (const fileName of orderedFileNames) {
     const filePath = path.join(dataDirectory, fileName);
