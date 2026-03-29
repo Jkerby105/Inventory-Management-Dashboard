@@ -7,7 +7,8 @@ import morgan from 'morgan';
 
 // Routes Imports \\
 
-import router from '../routes/dashboardRoutes';
+import dashboardRoutes from '../routes/dashboardRoutes';
+import productRoutes from '../routes/productRoutes';
 
 // Configurations \\
 dotenv.config();
@@ -23,7 +24,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('combined'));
 
 // Routes \\
-app.use("/dashboard", router)
+app.use("/dashboard", dashboardRoutes)
+app.use("/products", productRoutes)
 
 // Start the server
 const PORT = process.env.PORT || 3001;
